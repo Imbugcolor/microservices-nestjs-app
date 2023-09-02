@@ -7,12 +7,12 @@ COPY package-lock.json ./
 COPY tsconfig.json tsconfig.json
 COPY nest-cli.json nest-cli.json
 
-COPY apps/reservations apps/reservations
+COPY apps/auth apps/auth
 COPY libs libs
 
 RUN npm install
 
-RUN npm run build reservations
+RUN npm run build auth
 
 FROM node:alpine as production
 
@@ -28,4 +28,4 @@ RUN npm install --prod
 
 COPY --from=development /usr/src/app/dist ./dist
 
-CMD ["node", "dist/apps/reservations/main"]
+CMD ["node", "dist/apps/auth/main"]
